@@ -1,0 +1,80 @@
+# -*- coding: utf-8 -*-
+import config
+import telebot
+import markups as m
+import datetime
+
+bot = telebot.TeleBot(config.token)
+global money
+money = 0
+
+print("   Дата    |   Время  |  user_id  |  Команда")
+
+def console(text, message):
+    chat_id = message.chat.id
+    print(str(datetime.datetime.fromtimestamp(message.date).strftime('%d.%m.%Y')) + " | " + str(
+        datetime.datetime.fromtimestamp(message.date).strftime('%H:%M:%S')) + " | " + str(chat_id) + " | " + text)
+
+
+@bot.message_handler(func=lambda message: True, commands='start')
+def start_handler(message):
+    
+    chat_id = message.chat.id
+
+#     bot.send_message(chat_id,
+#                     '''\U0000270CЗдравствуйте.\U0000270C
+# Вас приветствует кэш-бэк сервис - ********.''', reply_markup=m.start_markup)
+#     bot.send_message(chat_id, (
+#                "\u2796" * 13 + "\nПривет, [id{0}].\n\U0001F4B2Ваш баланс: [{1}] рублей.\n" + "\u2796" * 13).format(str(chat_id), str(money)))
+#     bot.send_message(chat_id,
+#                     "\nПополнение баланса: /pay \nИстория операций: /history \nПросмотр последнего заказа: /lastorder\nСоздание заявки на перезаклад: /issue\nДругие вопросы: /help\n")
+#     bot.send_message(chat_id,
+#                     "Выберите город:\n" + "\u2796" * 13 + "\n\U0001F3E1Ижевск: /city1\n\U0001F3E1Сарапул: /city2\n" + "\u2796" * 13)
+
+
+## @bot.message_handler(commands='city1')
+## def citi1_handler(message):
+##     chat_id = message.chat.id
+##     console("/sity1", message)
+##     sities.choice_city1(message)
+##
+##
+## @bot.message_handler(commands='city2')
+## def citi2_handler(message):
+##     chat_id = message.chat.id
+##     console("/sity2", message)
+##     sities.choice_city2(message)
+##
+##
+## @bot.message_handler(commands=['help'])
+## def help_handler(message):
+##     chat_id = message.chat.id
+##     console("/help", message)
+##     bot.send_message(chat_id, 'Этот бот пока умеет отвечать на такие сообщения: \"привет\", \"как дела?\"')
+##
+
+# @bot.message_handler(content_types=['text'])
+# def text_handler(message):
+#     chat_id = message.chat.id
+#     console(message.text, message)
+#     text = message.text.lower()
+#     if text == "привет":
+#         msg = bot.send_message(chat_id, 'Привет, сколько вам лет?')
+#         bot.register_next_step_handler(msg, askAge)
+#     elif text == "как дела?":
+#         bot.send_message(chat_id, 'Хорошо, а у тебя?')
+#     else:
+#         bot.send_message(chat_id, 'Простите, я вам не понял :(')
+
+
+##def askAge(message):
+##    chat_id = message.chat.id
+##    text = message.text
+##    if not text.isdigit():
+##        msg = bot.send_message(chat_id, 'Возраст должен быть числом, введите еще раз.')
+##        bot.register_next_step_handler(msg, askAge)
+##        return
+##    msg = bot.send_message(chat_id, 'Окей, я понял, вам ' + text + ' лет.')
+
+if __name__== '__main__':
+    bot.polling(none_stop=True)
